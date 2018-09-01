@@ -1,13 +1,5 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+## Week 2 - First Assignment
 
-
-## Loading and preprocessing the data
-```{r}
 ## load the library needed for obtaining weekdays
 library(chron)
 
@@ -15,6 +7,7 @@ library(chron)
 dat = read.csv("activity.csv", header=TRUE)
 head(dat)
 summary(dat)
+names(dat)
 
 ## Add the day of the week to the database
 dat$wkday = weekdays(as.Date(dat$date))
@@ -25,7 +18,6 @@ cnt = length(dat$steps)
 # Initialize the day category vector
 dat$day_cat = rep(NA, cnt)
 
-# Attach the correct category to each day of the week:
 for (i in 1:cnt) {
 	if (dat$wkday[i]=="Saturday") 
 		dat$day_cat[i]="Weekend"
@@ -35,11 +27,7 @@ for (i in 1:cnt) {
 		dat$day_cat[i]="Weekday"
 }
 
-```
 
-
-## What is mean total number of steps taken per day?
-```{r}
 ## The following code accomplishes the goal of
 ## generating a histogram of the total number of steps
 ## taken each day and answering the question about mean
@@ -57,11 +45,6 @@ hist(sumdata$x, ylim=c(0,40), main = "Histogram\nWithout Imputation",
 mean(sumdata$x, na.rm=TRUE)
 median(sumdata$x, na.rm=TRUE)
 
-```
-
-
-## What is the average daily activity pattern?
-```{r}
 ## Time series plot of the average number of steps taken in each
 ## 5 minute interval averaged across all days
 
@@ -88,12 +71,7 @@ plot(ints, mn_step, type="l", xlab = "Time Interval", ylab = "Mean number of Ste
 index = which.max(mn_step)
 ints[index]
 
-```
-##The value of 835 corresponds to the time interval between 8:35 and 8:40 AM.
-\newline
 
-## Imputing missing values
-```{r}
 ## Calculate and report the total number of missing values in the dataset
 sum(is.na(dat$steps))
 
@@ -148,11 +126,7 @@ median(sumdata2$x, na.rm=TRUE)
 
 # The median increased very slightly (i.e. by 1.19 units).
 
-```
 
-
-## Are there differences in activity patterns between weekdays and weekends?
-```{r}
 ## Are there differences in activity patterns between weekdays and
 ## weekends?
 
@@ -202,7 +176,5 @@ plot(ints, mn_step, type="l", xlab = "Time Interval", ylab = "Mean number of Ste
 # is almost as high as for the largest peak.  For the weekdays there was
 # a strong peak in the graph at around 8:30 in the morning, and no other
 # interval had a mean value approaching this.
-
-```
 
 
